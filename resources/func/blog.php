@@ -21,7 +21,15 @@
     }
     
     function get_categories($id = null) {
+        $categories = array();
         
+        $query = mysql_query("SELECT id, nombre FROM categorias");
+        
+        while ($row = mysql_fetch_assoc($query)) {
+            $categories[] = $row;
+        }
+        
+        return $categories;
     }
     
     function category_exists($name) {

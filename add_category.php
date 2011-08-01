@@ -22,7 +22,7 @@
     <head>
         <meta charset="ISO-8859-1">
         <meta http-equiv="Content-Type" content="IE=edge,chrome=1">
-        <title>Add Category</title>
+        <title>Agregar categorias</title>
     </head>
     <body>
         <h1>Agregar categoria</h1>
