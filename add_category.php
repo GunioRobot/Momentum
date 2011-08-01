@@ -21,16 +21,22 @@
 <html lang="en">
     <head>
         <meta charset="ISO-8859-1">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="Content-Type" content="IE=edge,chrome=1">
         <title>Add Category</title>
     </head>
     <body>
         <h1>Agregar categoria</h1>
         
+        <?php
+            if (isset($error)) {
+                echo "<p>$error</p>\n";
+            }
+        ?>
+        
         <form action="" method="POST">
             <div>
                 <label for="name">Name</label>
-                <input type="text" name="value" value=""/>
+                <input type="text" name="name" value=""/>
             </div>
             <div>
                 <input type="submit" value="Agregar categoria"/>

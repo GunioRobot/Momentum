@@ -9,7 +9,7 @@
     
     function add_category($name) {
         $name = mysql_real_escape_string($name);
-        $query = mysql_query("INSERT INTO categorias VALUES '{$name}';");
+        $query = mysql_query("INSERT INTO categorias(nombre) VALUES ('{$name}')") or die(mysql_error());
     }
     
     function delete($field, $id) {
@@ -26,7 +26,7 @@
     
     function category_exists($name) {
         $name = mysql_real_escape_string($name);
-        $query = mysql_query("SELECT COUNT(1) FROM categorias WHERE name = '{$name}';");
+        $query = mysql_query("SELECT COUNT(1) FROM categorias WHERE nombre = '{$name}'");
         
         return (mysql_result($query, 0) == '0') ? false : true;
     }
