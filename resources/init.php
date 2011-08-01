@@ -1,7 +1,8 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+    include_once 'resources/config.php';
+    
+    mysql_connect(DB_HOST, DB_USER, DB_PASS);
+    mysql_select_db(DB_NAME);
+    
+    include_once 'func/blog.php';
 ?>
