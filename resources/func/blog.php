@@ -12,8 +12,11 @@
         $query = mysql_query("INSERT INTO categorias(nombre) VALUES ('{$name}')") or die(mysql_error());
     }
     
-    function delete($field, $id) {
+    function delete($table, $id) {
+        $table = mysql_real_escape_string($table);
+        $id = (int)$id;
         
+        $query = mysql_query("DELETE FROM '{$table}' WHERE id = '{$id}'");
     }
     
     function get_posts($id = null, $cat_id = null) {
