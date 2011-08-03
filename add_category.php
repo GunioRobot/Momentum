@@ -6,7 +6,7 @@
         
         if (empty($name)) {
             $error = "Debes poner un nombre a la categoria.";
-        } else if (category_exists($name)) {
+        } else if (category_exists('name', $name)) {
             $error = "Esa categoria ya existe.";
         } else if (strlen($name) > 24) {
             $error = "El nombre de la categoria no puede ser mayor de 24 caracteres.";

@@ -1,6 +1,10 @@
 <?php
     function add_post($title, $contents, $category) {
+        $title = mysql_real_escape_string($title);
+        $contents = mysql_real_escape_string($contents);
+        $category = (int)$category;
         
+        mysql_query("INSERT INTO posts VALUES ('{$category}', '{$title}', '{$contents}')");
     }
     
     function edit_post($id, $title, $contents, $category) {
@@ -16,7 +20,7 @@
         $table = mysql_real_escape_string($table);
         $id = (int)$id;
         
-        $query = mysql_query("DELETE FROM '{$table}' WHERE id = '{$id}'");
+        mysql_query("DELETE FROM {$table} WHERE id = {$id}");
     }
     
     function get_posts($id = null, $cat_id = null) {
@@ -35,9 +39,10 @@
         return $categories;
     }
     
-    function category_exists($name) {
-        $name = mysql_real_escape_string($name);
-        $query = mysql_query("SELECT COUNT(1) FROM categorias WHERE nombre = '{$name}'");
+    function category_exists($field, $value) {
+        $field = mysql_real_escape_string($field);
+        $value = mysql_real_escape_string($value);
+        $query = mysql_query("SELECT COUNT(1) FROM categorias WHERE {$field} = '{$value}'");
         
         return (mysql_result($query, 0) == '0') ? false : true;
     }
