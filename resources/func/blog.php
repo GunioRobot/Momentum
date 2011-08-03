@@ -4,7 +4,7 @@
         $contents = mysql_real_escape_string($contents);
         $category = (int)$category;
         
-        mysql_query("INSERT INTO posts VALUES ('{$category}', '{$title}', '{$contents}')");
+        mysql_query("INSERT INTO `posts` SET `cat_id` = {$category}, `title` = '{$title}', `contents` = '{$contents}', `date_posted` = NOW()");
     }
     
     function edit_post($id, $title, $contents, $category) {
@@ -24,7 +24,26 @@
     }
     
     function get_posts($id = null, $cat_id = null) {
+        $posts = array();
         
+        $query = "SELECT `posts`.`id` AS `post_id`, `categorias`.`id` AS `category_id`, `title`, `contents`, `date_posted`, `nombre`
+                  FROM `posts`
+                  INNER JOIN `categorias` ON `categorias`.`id` = `posts`.`cat_id`";
+        
+        if (isset($id)) {
+            $id = (int)$id;
+            $query .= "WHERE `posts`.`id` = '{$id}'";
+        }
+        
+        $query .= "ORDER BY `posts`.`id` DESC";
+        
+        $query = mysql_query($query);
+        
+        while ($row = mysql_fetch_assoc($query)) {
+            $posts[] = $row;
+        }
+        
+        return $posts;
     }
     
     function get_categories($id = null) {
