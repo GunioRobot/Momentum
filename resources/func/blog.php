@@ -35,6 +35,11 @@
             $query .= "WHERE `posts`.`id` = '{$id}'";
         }
         
+        if (isset($cat_id)) {
+            $cat_id = (int)$cat_id;
+            $query .= "WHERE `cat_id` = '{$cat_id}'";
+        }
+        
         $query .= "ORDER BY `posts`.`id` DESC";
         
         $query = mysql_query($query);
@@ -61,7 +66,7 @@
     function category_exists($field, $value) {
         $field = mysql_real_escape_string($field);
         $value = mysql_real_escape_string($value);
-        $query = mysql_query("SELECT COUNT(1) FROM categorias WHERE {$field} = '{$value}'");
+        $query = mysql_query("SELECT COUNT(1) FROM categorias WHERE '{$field}' = '{$value}'");
         
         return (mysql_result($query, 0) == '0') ? false : true;
     }
