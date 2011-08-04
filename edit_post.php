@@ -26,7 +26,7 @@
         if (empty($errors)) {
             edit_post($_GET['id'], $title, $contents, $_POST['category']);
             
-            header("Location: index.php?id={$id}");
+            header("Location: index.php?id={$post[0]['post_id']}");
             die();
         }
     }

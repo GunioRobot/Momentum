@@ -8,12 +8,17 @@
     }
     
     function edit_post($id, $title, $contents, $category) {
+        $id = (int)$id;
+        $title = mysql_real_escape_string($title);
+        $contents = mysql_real_escape_string($contents);
+        $category = (int)$category;
         
+        mysql_query("UPDATE `post` SET `cat_id` = '{$category}', `title` = '{$title}', `contents` = '{$contents}' WHERE `id` = '{$id}'");
     }
     
     function add_category($name) {
         $name = mysql_real_escape_string($name);
-        $query = mysql_query("INSERT INTO categorias(nombre) VALUES ('{$name}')") or die(mysql_error());
+        $query = mysql_query("INSERT INTO categorias(nombre) VALUES ('{$name}')");
     }
     
     function delete($table, $id) {
@@ -66,7 +71,12 @@
     function category_exists($field, $value) {
         $field = mysql_real_escape_string($field);
         $value = mysql_real_escape_string($value);
-        $query = mysql_query("SELECT COUNT(1) FROM categorias WHERE '{$field}' = '{$value}'");
+        
+        if ($field == "id") {
+            $query = mysql_query("SELECT COUNT(1) FROM categorias WHERE id = '{$value}'");
+        } else {
+            $query = mysql_query("SELECT COUNT(1) FROM categorias WHERE nombre = '{$value}'");
+        }
         
         return (mysql_result($query, 0) == '0') ? false : true;
     }
