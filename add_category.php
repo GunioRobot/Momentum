@@ -1,9 +1,9 @@
-<?php 
+<?php
     include_once 'resources/init.php';
 
     if (isset($_POST['name'])) {
         $name = trim($_POST['name']);
-        
+
         if (empty($name)) {
             $error = "Debes poner un nombre a la categoria.";
         } else if (category_exists('name', $name)) {
@@ -11,7 +11,7 @@
         } else if (strlen($name) > 24) {
             $error = "El nombre de la categoria no puede ser mayor de 24 caracteres.";
         }
-        
+
         if (!isset($error)) {
             add_category($name);
             header ("Location: add_post.php");
@@ -28,13 +28,13 @@
     </head>
     <body>
         <h1>Agregar categoria</h1>
-        
+
         <?php
             if (isset($error)) {
                 echo "<p>$error</p>\n";
             }
         ?>
-        
+
         <form action="" method="POST">
             <div>
                 <label for="name">Name</label>

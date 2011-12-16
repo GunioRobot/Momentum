@@ -1,6 +1,6 @@
 <?php
     include_once 'resources/init.php';
-    
+
     $posts = (isset($_GET['id'])) ? get_posts($_GET['id']) : get_posts();
 ?>
 <!DOCTYPE html>
@@ -13,7 +13,7 @@
             ul {
                 list-style: none;
             }
-            
+
             li {
                 display: inline;
                 margin-right: 20px;
@@ -30,14 +30,14 @@
             </ul>
         </nav>
         <h1>Momentum.</h1>
-        <?php 
+        <?php
             foreach ($posts as $post) {
                 if (!category_exists('nombre', $post['nombre'])) {
                     $post['nombre'] = "Sin categoria";
                 }?>
                 <h2><a href="index.php?id=<?php echo $post['post_id']; ?>"><?php echo $post['title']; ?></a></h2>
                 <p>Posted on <?php echo date("d-m-Y h:i:s", strtotime($post['date_posted'])); ?>
-                    en <a href="category.php?id=<?php echo $post['category_id'] ?>"><?php echo $post['nombre']; ?></a> 
+                    en <a href="category.php?id=<?php echo $post['category_id'] ?>"><?php echo $post['nombre']; ?></a>
                 </p>
                 <div><?php echo nl2br($post['contents']); ?></div>
                 <menu>

@@ -1,31 +1,31 @@
 <?php
     include_once 'resources/init.php';
-    
+
     if (isset($_POST['title'], $_POST['contents'], $_POST['category'])) {
         $errors = array();
-        
+
         $title = trim($_POST['title']);
         $contents = trim($_POST['contents']);
-        
+
         if (empty($title)) {
             $errors[] = "Por favor, agrega un titulo.";
         } else if (strlen($title) > 255) {
             $errors[] = "El titulo no puede ser mas largo de 255 caracteres.";
         }
-        
+
         if (empty($contents)) {
             $errors[] = "Por favor, agrega contenido.";
-        } 
-        
+        }
+
         if (!category_exists('id', $_POST['category'])) {
             $errors[] = "La categoria no existe.";
         }
-        
+
         if (empty($errors)) {
             add_post($title, $contents, $_POST['category']);
-            
+
             $id = mysql_insert_id();
-            
+
             header("Location: index.php?id={$id}");
             die();
         }
@@ -36,18 +36,18 @@
     <head>
         <meta charset="ISO-8859-1">
         <meta http-equiv="Content-Type" content="IE=edge,chrome=1">
-        
+
         <style>
             label {
                 display: block;
             }
         </style>
-        
+
         <title>Agregar post</title>
     </head>
     <body>
         <h1>Agrega un post</h1>
-        <?php 
+        <?php
             if (isset($errors) && !empty($errors)) {
                 echo "<ul><li>",implode("</li><li>", $errors),"</li></ul>";
             }
@@ -64,7 +64,7 @@
             <div>
                 <label for="category">Category</label>
                 <select name="category">
-                    <?php 
+                    <?php
                         foreach (get_categories() as $category) {?>
                             <option value="<?php echo $category['id']; ?>"><?php echo $category['nombre']; ?></option>
                         <?php
